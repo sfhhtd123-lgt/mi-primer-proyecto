@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+    header('Location: login.php');
+    exit;
+}
 require_once 'config/conexion.php';
 
 $mensaje = '';
@@ -28,8 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Nuevo Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"><i class="bi bi-shop"></i> Sistema de Tienda</a>
+            <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link" href="index.php">Catálogo</a>
+                <a class="nav-link" href="cotizador.php">Cotizador</a>
+                <a class="nav-link" href="reporte_metricas.php">Reportes</a>
+                <span class="navbar-text text-light ms-3 me-2">Hola, <?= htmlspecialchars($_SESSION['nombre'] ?? '') ?></span>
+                <a class="btn btn-outline-light btn-sm" href="logout.php"><i class="bi bi-box-arrow-right"></i> Salir</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container my-5" style="max-width: 600px;">
         <div class="card shadow">
             <div class="card-body">
